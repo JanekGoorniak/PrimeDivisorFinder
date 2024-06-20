@@ -6,10 +6,13 @@ public class PrimeList
     List<PrimeInt> primeList = new ArrayList<>();
     int largestCheckedNumber = 3;
 
-    public PrimeList()
+    public PrimeList(boolean notLoaded)
     {
-        primeList.add(new PrimeInt(2));
-        primeList.add(new PrimeInt(3));
+        if(notLoaded)
+        {
+            primeList.add(new PrimeInt(2));
+            primeList.add(new PrimeInt(3));
+        }
     }
 
     boolean isOnList(int a)

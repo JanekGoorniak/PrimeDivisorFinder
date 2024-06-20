@@ -8,8 +8,9 @@ public class Main
     {
         int a;
         boolean noQuit = true;
-        PrimeList primeList = new PrimeList();
+        PrimeList primeList = new PrimeList(true);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        FileHandler fileHandler = new FileHandler("SaveFile.txt");
         while(noQuit)
         {
             try
@@ -21,21 +22,50 @@ public class Main
                 throw new RuntimeException(e);
             }
 
-            if(a == 0)
+            switch (a)
             {
-                noQuit = false;
-            }
-            else if(a == -1)
-            {
-                Debug.debug = true;
-            }
-            else if(a < 0)
-            {
-                System.out.println("Invalid input");
-            }
-            else
-            {
-                System.out.println(primeList.findDivisors(a).stringMaker());
+                case 0:
+                    noQuit = false; break;
+
+                case -1:
+                    Debug.debug = true; System.out.println("Debug mode ON"); break;
+
+                case -2:
+                    System.out.println("Saving...");
+                    try
+                    {
+                        fileHandler.overwrite(primeList);
+                    }
+                    catch (IOException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println("Ready!");
+                     break;
+
+                case -3:
+                    System.out.println("Loading...");
+                    try
+                    {
+                        primeList = fileHandler.loadFile();
+                    }
+                    catch (IOException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println("Ready!");
+                    break;
+
+                default:
+                    if(a < 0)
+                    {
+                        System.out.println("Invalid input");
+                    }
+                    else
+                    {
+                        System.out.println("Please wait...");
+                        System.out.println(primeList.findDivisors(a).stringMaker());
+                    }
             }
         }
     }
