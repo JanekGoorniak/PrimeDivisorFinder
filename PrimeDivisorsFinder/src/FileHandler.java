@@ -12,11 +12,18 @@ public class FileHandler
 
     void overwrite(PrimeList primeList) throws IOException
     {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
         for(int i = 0; i < primeList.primeList.size(); i++)
         {
-            writer.write(String.valueOf(primeList.primeList.get(i).pint) + "\n");
+            if(Debug.debug)
+                System.out.println(primeList.primeList.get(i).pint);
+            writer.write(primeList.primeList.get(i).pint + "\n");
+            if(Debug.debug)
+                writer.write("TEST STRING\n");
+
         }
+        writer.flush();
+        writer.close();
     }
 
     PrimeInt loadLine(BufferedReader reader) throws IOException
@@ -24,6 +31,8 @@ public class FileHandler
         String temp = reader.readLine();
         if(temp == null)
             return new PrimeInt(0);
+        if(temp.equals("TEST STRING"))
+            temp = reader.readLine();
         return new PrimeInt(Integer.parseInt(temp));
     }
 
@@ -35,12 +44,14 @@ public class FileHandler
         do
         {
             loadedInt = loadLine(reader);
-            loadedList.primeList.add(loadedInt);
+            if(loadedInt.pint != 0)
+                loadedList.primeList.add(loadedInt);
             if(Debug.debug)
                 System.out.println(loadedInt.pint);
         }
         while(loadedInt.pint != 0);
-        loadedList.largestCheckedNumber = loadedList.primeList.getLast().pint;
+        if(!loadedList.primeList.isEmpty())
+            loadedList.largestCheckedNumber = loadedList.primeList.getLast().pint;
         return loadedList;
     }
 }

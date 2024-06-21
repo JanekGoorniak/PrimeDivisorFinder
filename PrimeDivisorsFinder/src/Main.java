@@ -10,7 +10,7 @@ public class Main
         boolean noQuit = true;
         PrimeList primeList = new PrimeList(true);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        FileHandler fileHandler = new FileHandler("SaveFile.txt");
+        FileHandler fileHandler = new FileHandler("SaveFile");
         while(noQuit)
         {
             try
@@ -28,7 +28,18 @@ public class Main
                     noQuit = false; break;
 
                 case -1:
-                    Debug.debug = true; System.out.println("Debug mode ON"); break;
+                    if (Debug.debug)
+                    {
+                        Debug.debug = false;
+                        System.out.println("Debug mode OFF");
+                    }
+                    else
+                    {
+                        Debug.debug = true;
+                        System.out.println("Debug mode ON");
+                    }
+                    break;
+
 
                 case -2:
                     System.out.println("Saving...");

@@ -47,6 +47,11 @@ public class PrimeList
 
     DivisorList findDivisors(int a)
     {
+        if (primeList.isEmpty())
+        {
+            this.primeList = new PrimeList(true).primeList;
+        }
+
         if(a > largestCheckedNumber)
             expand(a);
 
