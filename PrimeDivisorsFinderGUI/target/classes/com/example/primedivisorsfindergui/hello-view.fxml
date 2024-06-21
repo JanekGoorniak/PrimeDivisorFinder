@@ -10,8 +10,8 @@
     </padding>
    <HBox alignment="CENTER" prefHeight="33.0" prefWidth="200.0" spacing="10.0">
       <children>
-         <Button mnemonicParsing="false" text="Save" />
-       <Button mnemonicParsing="false" text="Load" />
+         <Button mnemonicParsing="false" onAction="#onSaveButtonClick" text="Save" />
+       <Button mnemonicParsing="false" onAction="#onLoadButtonClick" text="Load" />
           <Button onAction="#onFindButtonClick" text="Find!" />
       </children>
       <VBox.margin>

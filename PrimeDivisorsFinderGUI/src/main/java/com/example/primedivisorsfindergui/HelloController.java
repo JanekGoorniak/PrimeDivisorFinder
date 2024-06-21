@@ -23,6 +23,7 @@ public class HelloController {
     @FXML
     protected void onFindButtonClick()
     {
+        
         int a = Integer.parseInt(input.getText());
         if(a > 0)
         {
@@ -36,12 +37,26 @@ public class HelloController {
     @FXML
     protected void onSaveButtonClick()
     {
-
+        try
+        {
+            fileHandler.overwrite(primeList);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     protected void onLoadButtonClick()
     {
-
+        try
+        {
+            primeList = fileHandler.loadFile();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
